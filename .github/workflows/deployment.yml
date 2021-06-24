@@ -39,3 +39,4 @@ jobs:
         app-name: ${{ steps.iac-deploy.outputs.functionAppName }}
         package: ./FunctionApp
 
+
