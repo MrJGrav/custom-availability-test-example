@@ -25,6 +25,7 @@ resource kv 'Microsoft.KeyVault/vaults@2018-02-14' = {
       name: 'standard'
     }
     tenantId: subscription().tenantId
+    accessPolicies: []
   }
   
   resource stgKey 'secrets' = {
