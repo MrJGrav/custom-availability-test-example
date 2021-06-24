@@ -5,7 +5,9 @@
     "debug.internalConsoleOptions": "neverOpen",
     "cSpell.ignoreWords": [
         "appinsights",
+        "creds",
         "env",
-        "instrumentationkey"
+        "instrumentationkey",
+        "uksouth"
     ]
 }
