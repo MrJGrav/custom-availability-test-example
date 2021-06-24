@@ -1,0 +1,41 @@
+name: deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      baseName:
+        description: The base name for the resource group and resources
+        required: true
+        default: 'custom-availability-test-example'
+      location:
+        description: Azure region for the deployment
+        required: true
+        default: 'uksouth'
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: deploy iac
+      uses: azure/arm-deploy@v1
+      id: iac-deploy
+      with:
+        template: ./IaC/main.bicep
+        parameters: baseName=${{ github.event.inputs.baseName }}
+        scope: subscription
+        region: ${{ github.event.inputs.location }}
+
+    - name: deploy function app
+      uses: Azure/functions-action@v1.4.0
+      with:
+        app-name: ${{ steps.iac-deploy.outputs.functionAppName }}
+        package: ./FunctionApp
+

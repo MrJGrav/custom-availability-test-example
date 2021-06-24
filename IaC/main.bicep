@@ -1,6 +1,6 @@
 targetScope = 'subscription'
 param baseName string
-param location string
+param location string = deployment().location
 
 resource rsg 'Microsoft.Resources/resourceGroups@2020-08-01' = {
   name: baseName
@@ -28,7 +28,7 @@ module vnet 'network.bicep' = {
   }
 }
 
-module functionApp 'functionApp.bicep' = {
+module functionApp 'functionapp.bicep' = {
   scope: rsg
   name: 'functionApp'
   params: {
