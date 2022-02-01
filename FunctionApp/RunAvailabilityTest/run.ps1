@@ -1,7 +1,7 @@
 # Input bindings are passed in via param block.
 param($Timer)
 
-$webAppUrl = "https://$($env:webAppHostname)"
+$webAppUrl = "https://ctg-wa-digitaladmin-prod.azurewebsites.net"
 
 # use Invoke-WebRequest to send a request to the web app's URL and store the result so we can check the status code
 # also, track the start and end times for the request so we can calculate the duration later on
@@ -25,7 +25,7 @@ $appInsightsParams = @{
     TestName          = $webAppUrl
     DateTime          = $startTime
     Duration          = New-TimeSpan -Start $startTime -End $endTime
-    TestRunLocation   = $env:location
+    TestRunLocation   = "eastus"
     Success           = $success ?? $true
     Message           = $message ?? ""
 }
